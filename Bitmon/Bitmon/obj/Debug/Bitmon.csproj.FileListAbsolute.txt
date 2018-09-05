@@ -1,0 +1,7 @@
+C:\Users\usuario\source\repos\Bitmon\Bitmon\bin\Debug\Bitmon.exe.config
+C:\Users\usuario\source\repos\Bitmon\Bitmon\bin\Debug\Bitmon.exe
+C:\Users\usuario\source\repos\Bitmon\Bitmon\bin\Debug\Bitmon.pdb
+C:\Users\usuario\source\repos\Bitmon\Bitmon\obj\Debug\Bitmon.csprojResolveAssemblyReference.cache
+C:\Users\usuario\source\repos\Bitmon\Bitmon\obj\Debug\Bitmon.csproj.CoreCompileInputs.cache
+C:\Users\usuario\source\repos\Bitmon\Bitmon\obj\Debug\Bitmon.exe
+C:\Users\usuario\source\repos\Bitmon\Bitmon\obj\Debug\Bitmon.pdb
