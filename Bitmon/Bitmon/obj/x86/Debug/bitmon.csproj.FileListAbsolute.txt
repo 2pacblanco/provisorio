@@ -1,0 +1,6 @@
+/Users/raymartinez/Projects/Bitmon/Bitmon/bin/Debug/bitmon.exe
+/Users/raymartinez/Projects/Bitmon/Bitmon/bin/Debug/bitmon.pdb
+/Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.csprojResolveAssemblyReference.cache
+/Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.csproj.CoreCompileInputs.cache
+/Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.exe
+/Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.pdb
