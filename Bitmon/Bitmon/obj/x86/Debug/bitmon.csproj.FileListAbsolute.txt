@@ -4,3 +4,10 @@
 /Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.csproj.CoreCompileInputs.cache
 /Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.exe
 /Users/raymartinez/Projects/Bitmon/Bitmon/obj/x86/Debug/bitmon.pdb
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\obj\x86\Debug\bitmon.csprojResolveAssemblyReference.cache
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\obj\x86\Debug\bitmon.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\obj\x86\Debug\bitmon.exe
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\obj\x86\Debug\bitmon.pdb
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\bin\Debug\bitmon.exe.config
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\bin\Debug\bitmon.exe
+C:\Users\usuario\Desktop\provisorio\Bitmon\Bitmon\bin\Debug\bitmon.pdb
