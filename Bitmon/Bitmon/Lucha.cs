@@ -31,7 +31,7 @@ namespace Bitmon
         {
             Console.WriteLine("\n La batalla va a comenzar!!, se tirarána moneda al aire para definir al primer turno \n");
             Random rd1 = new Random();
-            int azar = rd1.Next(1, 3);
+            int azar = rd1.Next(1, 2);
             if (azar == 1)
             {
                 Console.WriteLine("La moneda dio sello!!, comenzarál luchador " + participantes[0].nombre);
@@ -65,15 +65,12 @@ namespace Bitmon
                         {
                             b.estadolucha = "activo";
                             Console.WriteLine(b.nombre + " elegido!!");
-                            aux1 = false;
                             break;
                         }
-                        else
-                        {
-                            Console.WriteLine("Nombre incorrecto!!");
-                            continue;
-                        }
+                        else { continue; }
+                        
                     }
+                    aux1 = false;
                 }
                 Console.Clear();
             }
@@ -143,15 +140,15 @@ namespace Bitmon
         }
 
         public void PeleaTurno(){
-            if (turno == 0)
+            if (turno == 1 || turno == 0 )
             {
                 while (true)
                 {
-                    Console.WriteLine("Turno de " + participantes[0].nombre + "/n");
-                    Console.WriteLine("Por favor, eliga su accion!! (Ingrese el numero asociado a la accion)/n");
-                    Console.WriteLine("1.- Atacar /n");
-                    Console.WriteLine("2.- Descansar /n");
-                    Console.WriteLine("3.- Cambiar /n");
+                    Console.WriteLine("Turno de " + participantes[0].nombre );
+                    Console.WriteLine("Por favor, eliga su accion!! (Ingrese el numero asociado a la accion)");
+                    Console.WriteLine("1.- Atacar ");
+                    Console.WriteLine("2.- Descansar ");
+                    Console.WriteLine("3.- Cambiar ");
                     int opcion = Convert.ToInt32(Console.ReadLine());
                     if (opcion == 3)
                     {
@@ -206,18 +203,38 @@ namespace Bitmon
                         {
                             Console.WriteLine("Ingrese el número del poder elegido para atacar al enemigo: ");
                             poderelegido = Convert.ToInt32(Console.ReadLine()) - 1;
-                            if (poderelegido < 1 || poderelegido > 5)
+                            if (poderelegido < 0 || poderelegido > 4)
                             {
                                 Console.WriteLine("opción no valida, ingrese nuevamente");
-                                break;
+                                continue;
                             }
                             else
                             {
-                                continue;
+                                break;
                             }
                         }
                         Poder power = act1.poderes[poderelegido];
                         act2 = act1.Ataca(act2,power);
+                        int counter2 = 0;
+                        foreach(Bitmon b in participantes[1].equipo)
+                        {
+                            if (b.estadolucha == "activo")
+                            { 
+                                break;
+                            }
+                            counter2++;
+                        }
+                        participantes[1].equipo[counter2] = act2;
+
+                        foreach (Bitmon b in participantes[1].equipo)
+                        {
+                            if (b.estadolucha == "activo")
+                            {
+                                Console.WriteLine("Vida poquemon afectado->" +b.vida);
+                            }
+                  
+                        }
+
 
 
                     }
