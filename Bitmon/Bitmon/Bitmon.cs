@@ -27,7 +27,7 @@ namespace Bitmon
 
         public Bitmon Ataca(Bitmon atacado, Poder pow)
         {
-            double defensareal = atacado.defensa * (0.5);//esto nos pareció necesario para hacer un poco más rápido y fluido el juego
+            double defensareal = atacado.defensa * (0.3);//esto nos pareció necesario para hacer un poco más rápido y fluido el juego
             double ataquereal = pow.danio + ataque;
             //reduccion de vida
             if (pow.tipo == "Normal")
