@@ -8,7 +8,7 @@ namespace Bitmon
 {
     public class Lucha
     {
-        List<Jugador> participantes;
+        public List<Jugador> participantes;
         public int idlucha, turno;
         public string estadolucha;
 
@@ -72,6 +72,11 @@ namespace Bitmon
                         else { continue; }
 
                     }
+                    if (bitaux == null)
+                    {
+                        Console.WriteLine("opción inválida, ingrésela nuevamente!!");
+                        continue;
+                    }
                     aux1 = false;
                 }
                 foreach(Bitmon b in j.equipo)
@@ -84,112 +89,99 @@ namespace Bitmon
                 Console.Clear();
             }
         }
-        public void CambiarAct()
-        {
-            foreach (Jugador j in participantes)
-            {
-                int counter = 1;
-
-                Console.WriteLine(j.nombre + " Su pokemon activo es \n");
-
-                foreach (Bitmon b in j.equipo)
-                {
-
-
-                    if (b.estadolucha == "activo")
-                    {
-                        Console.WriteLine(counter + ".- " + "Nombre: " + b.nombre + " Tipo: " + b.tipo + "\n");
-                    }
-
-
-                }
-                Console.WriteLine(j.nombre + " Desea cambiar su Bitmon Activo?");
-                string resp = Console.ReadLine();
-                if (resp == "si")
-                {
-
-                    Console.WriteLine(j.nombre + " sus pokemones disponibles para cambiar son \n");
-
-                    foreach (Bitmon b in j.equipo)
-                    {
-                        if (b.estadolucha != "activo")
-                        {
-                            Console.WriteLine(".- " + "Nombre: " + b.nombre + " Tipo: " + b.tipo + "\n");
-                        }
-                    }
-                    Console.WriteLine(j.nombre + "Por cual bitmon de los anteriores desea cambiar su Bitmon activo");
-                    string bitMov = Console.ReadLine();
-                    foreach (Bitmon b in j.equipo)
-                    {
-                        if (b.estadolucha == "activo")
-                        {
-                            b.estadolucha = "null";
-                        }
-                        if (b.nombre == bitMov)
-                        {
-                            b.estadolucha = "activo";
-                            Console.WriteLine("se ha cambiado el bitmon activo por otro");
-                        }
-
-                    }
-                    Console.WriteLine("ahora su pokemon activo nuevo es ");
-                    foreach (Bitmon b in j.equipo)
-                    {
-                        if (b.estadolucha == "activo")
-                        {
-                            Console.WriteLine(".- " + "Nombre: " + b.nombre + " Tipo: " + b.tipo + "\n");
-                        }
-
-                    }
-                    Console.Clear();
-
-                }
-            }
-
-        }
+       
 
         public void PeleaTurno() {
             if (turno == 1)
             {
+                Console.WriteLine("Estado de los bitmons iniciado este turno!:");
+                Console.WriteLine("Bitmon de " + participantes[0].nombre);
                 foreach (Bitmon b in participantes[0].equipo)
                 {
 
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
                 }
+                Console.WriteLine("Bitmon de " + participantes[1].nombre);
+                foreach (Bitmon b in participantes[1].equipo)
+                {
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
+                }
+
+                
+
                 bool boolaux = true;
                 while (boolaux)
                 {
+                    int opcion;
                     Console.WriteLine("Turno de " + participantes[0].nombre);
                     Console.WriteLine("Por favor, eliga su accion!! (Ingrese el numero asociado a la accion)");
                     Console.WriteLine("1.- Atacar ");
                     Console.WriteLine("2.- Descansar ");
                     Console.WriteLine("3.- Cambiar ");
-                    int opcion = Convert.ToInt32(Console.ReadLine());
+
+                    try
+                    {
+                        opcion = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("dato mal ingresado, ingréselo nuevamente porfavor");
+                        Console.WriteLine("Presiona una letra para continuar");
+                        Console.ReadKey();
+                        Console.Clear();
+                        continue;
+                    }
+
                     if (opcion == 3)
                     {
-                        CambiarAct();//arreglar metodo
+                        participantes[0].CambiarAct();
+                        boolaux = false;
                         break;
                     }
                     if (opcion == 2)
                     {
                         Console.WriteLine("Está seguro que quieres que este bitmon descanse? [S/N]");
-                        string p = Console.ReadLine();
-                        if (p == "s" || p == "S")
+
+                        char p = Convert.ToChar(Console.ReadLine());
+
+                        if (p == 's' || p == 'S')
                         {
                             foreach (Bitmon b in participantes[0].equipo)
                             {
                                 if (b.estadolucha == "activo")
                                 {
-                                    b.stamina = b.stamina + 10;
-                                    b.defensa = b.defensa + 20;
+                                    b.vida = b.vida + 30;
+                                    b.stamina = b.stamina + 5;
+                                    Console.WriteLine($"Estadisticas de {b.nombre} mejoradas!!");
+                                    Console.WriteLine($" Vida: +30      Stamina: +5 ");
+                                    Console.WriteLine("Apreta una tecla para continuar!!");
+                                    Console.ReadKey();
                                     break;
                                 }
-
                             }
+
                         }
-                        if (p == "n" || p == "N")
+                        if (p == 'n' || p == 'N')
                         {
-                            continue;
+                            Console.WriteLine("Turno perdido :(");
+                            Console.WriteLine("Apreta una tecla para continuar!!");
+                            Console.ReadKey();
                         }
+                        else
+                        {
+                            Console.WriteLine("opción no valida, ingresela nuevamente!!");
+
+                        }
+                        boolaux = false;
+                        break;
                     }
                     if (opcion == 1)
                     {
@@ -216,9 +208,11 @@ namespace Bitmon
                             Console.WriteLine(counter + ".- Nombre: " + p.nombre + ", Costo: " + p.costo + ", Danio: " + p.danio + ", Tipo: " + p.tipo + ", Ulti: " + p.ulti);
                             counter++;
                         }
-                        int poderelegido;
+
+                        Poder power;
                         while (true)
                         {
+                            int poderelegido;
                             Console.WriteLine("Ingrese el número del poder elegido para atacar al enemigo: ");
                             try
                             {
@@ -229,33 +223,37 @@ namespace Bitmon
                                 Console.WriteLine("Formato no aceptado");
                                 continue;
                             }
-                            if (poderelegido < 0 || poderelegido > 4)
+                            if (poderelegido < 0 || poderelegido > 3)
                             {
                                 Console.WriteLine("opción no valida, ingrese nuevamente");
                                 continue;
                             }
                             else
                             {
+                                power = act1.poderes[poderelegido];
                                 break;
                             }
                         }
-                        Poder power = act1.poderes[poderelegido];
+                        
                         act2 = act1.Ataca(act2, power);
-                        int counter2 = 0;
-                        foreach (Bitmon b in participantes[1].equipo)
+                        
+                        foreach(Bitmon b in participantes[1].equipo)
                         {
-                            if (b.estadolucha == "activo")
+                            if (b.nombre == act2.nombre)
                             {
+                                b.vida = act2.vida;
+                                b.estadosalud = act2.estadosalud;
+                                b.estadolucha = act2.estadolucha;
+                                b.stamina = act2.stamina;
                                 break;
                             }
-                            counter2++;
                         }
-                        participantes[1].equipo[counter2] = act2;
-
+                       
                         Console.WriteLine("Datos de los Bitmons Finalizado este turno");
                         Console.WriteLine("Bitmon de "+participantes[0].nombre );
                         foreach (Bitmon b in participantes[0].equipo)
                         {
+                          
                             if (b.estadolucha == "activo")
                             {
                                 Console.WriteLine(b.nombre + "->VIDA->" + b.vida+"->STAMINA->"+b.stamina+"->Estado->:"+b.estadolucha);
@@ -271,55 +269,110 @@ namespace Bitmon
                             }
 
                         }
+                        
                         Console.WriteLine("Presione cualquier letra para seguir jugando!");
                         Console.ReadKey();
                         Console.Clear();
                         boolaux = false;
                     }
+                    else
+                    {
+                        Console.WriteLine("Opción inválida, por favor, Ingresela Nuevamente!!");
+                        Console.Clear();
+                        continue;
+                        
+                    }
                 }
+
             }
 
             if (turno == 2)
             {
-                foreach(Bitmon b in participantes[1].equipo)
+                Console.WriteLine("Estado de los bitmons iniciado este turno!:");
+                Console.WriteLine("Bitmon de " + participantes[0].nombre);
+                foreach (Bitmon b in participantes[0].equipo)
                 {
 
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
                 }
+                Console.WriteLine("Bitmon de " + participantes[1].nombre);
+                foreach (Bitmon b in participantes[1].equipo)
+                {
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
+                }
+             
+
                 bool boolaux1 = true;
                 while (boolaux1)
                 {
+                    int opcion;
                     Console.WriteLine("Turno de " + participantes[1].nombre);
                     Console.WriteLine("Por favor, eliga su accion!! (Ingrese el numero asociado a la accion)");
                     Console.WriteLine("1.- Atacar ");
                     Console.WriteLine("2.- Descansar ");
                     Console.WriteLine("3.- Cambiar ");
-                    int opcion = Convert.ToInt32(Console.ReadLine());
+                    try {
+                        opcion = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("dato mal ingresado, ingréselo nuevamente porfavor");
+                        Console.WriteLine("Presiona una letra para continuar");
+                        Console.ReadKey();
+                        Console.Clear();
+                        continue;
+                    }
+                    
                     if (opcion == 3)
                     {
-                        CambiarAct();//arreglar metodo
+                        participantes[1].CambiarAct();
+                        boolaux1=false;
                         break;
                     }
                     if (opcion == 2)
                     {
                         Console.WriteLine("Está seguro que quieres que este bitmon descanse? [S/N]");
-                        string p = Console.ReadLine();
-                        if (p == "s" || p == "S")
+
+                        char p = Convert.ToChar(Console.ReadLine());
+
+                        if (p == 's' || p == 'S')
                         {
                             foreach (Bitmon b in participantes[1].equipo)
                             {
                                 if (b.estadolucha == "activo")
                                 {
-                                    b.stamina = b.stamina + 10;
-                                    b.defensa = b.defensa + 20;
+                                    b.vida = b.vida + 30;
+                                    b.stamina = b.stamina + 5;
+                                    Console.WriteLine($"Estadisticas de {b.nombre} mejoradas!!");
+                                    Console.WriteLine($" Vida: +30      Stamina: +5 ");
+                                    Console.WriteLine("Apreta una tecla para continuar!!");
+                                    Console.ReadKey();
                                     break;
                                 }
-
                             }
+
                         }
-                        if (p == "n" || p == "N")
+                        if (p == 'n' || p == 'N')
                         {
-                            continue;
+                            Console.WriteLine("Turno perdido :(");
+                            Console.WriteLine("Apreta una tecla para continuar!!");
+                            Console.ReadKey();
                         }
+                        else
+                        {
+                            Console.WriteLine("opción no valida, ingresela nuevamente!!");
+
+                        }
+                        boolaux1 = false;
+                        break;
                     }
                     if (opcion == 1)
                     {
@@ -346,9 +399,10 @@ namespace Bitmon
                             Console.WriteLine(counter + ".- Nombre: " + p.nombre + ", Costo: " + p.costo + ", Danio: " + p.danio + ", Tipo: " + p.tipo + ", Ulti: " + p.tipo);
                             counter++;
                         }
-                        int poderelegido;
+                        Poder power;
                         while (true)
                         {
+                            int poderelegido;
                             Console.WriteLine("Ingrese el número del poder elegido para atacar al enemigo: ");
                             try
                             {
@@ -359,27 +413,29 @@ namespace Bitmon
                                 Console.WriteLine("Formato no aceptado");
                                 continue;
                             }
-                            if (poderelegido < 0 || poderelegido > 4)
+                            if (poderelegido < 0 || poderelegido > 3)
                             {
                                 Console.WriteLine("opción no valida, ingrese nuevamente");
                                 continue;
                             }
                             else
                             {
+                                power = act1.poderes[poderelegido];
                                 break;
                             }
                         }
-                        Poder power = act1.poderes[poderelegido];
+
                         act2 = act1.Ataca(act2, power);
-                        int counter2 = 0;
                         foreach (Bitmon b in participantes[0].equipo)
                         {
-                            if (b.estadolucha == act2.nombre)
+                            if (b.nombre == act2.nombre)
                             {
-                                participantes[0].equipo[counter2] = act2;
+                                b.vida = act2.vida;
+                                b.estadosalud = act2.estadosalud;
+                                b.estadolucha = act2.estadolucha;
+                                b.stamina = act2.stamina;
                                 break;
                             }
-                            counter2++;
                         }
 
                         Console.WriteLine("Datos de los Bitmons Finalizado este turno");
@@ -401,33 +457,26 @@ namespace Bitmon
                             }
 
                         }
+                        
                         Console.WriteLine("Presione cualquier letra para seguir jugando!");
                         Console.ReadKey();
                         Console.Clear();
                         boolaux1 = false;
                     }
+
+                    else
+                    {
+                        Console.WriteLine("Opción inválida, por favor, Ingresela Nuevamente!!");
+                        Console.Clear();
+                        continue;
+                        
+                    }
                 }
             }
+           
         }
     
-        public bool VerifyLife()
-        {
-            foreach (Jugador j in participantes)
-            {
-                foreach (Bitmon b in j.equipo)
-                {
-                    if(b.vida<= 0)
-                    {
-                        b.estadolucha = "muerto";
-                    }
-                    if(b.estadolucha == "activo" || b.estadolucha == null)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+       
     }
 }
 
