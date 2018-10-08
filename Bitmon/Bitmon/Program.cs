@@ -30,4 +30,4 @@
                             pelea = false;
                             Console.Clear();
                             break;
-                        }                     }                 }              }                          Console.ReadKey();         }     } } 
+                        }                     }                 }              }                     }     } } 

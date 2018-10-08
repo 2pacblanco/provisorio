@@ -27,6 +27,16 @@ namespace Bitmon
                 int counter = 1;
                 Console.WriteLine("Por favor, elija su Bitmon que saldrá a la Batalla: \n");
                 Console.WriteLine("Los disponibles para luchar son los siguientes:  (Ingrese el nombre de el Bitmon[primera letra mayuscula])");
+            bool waza =false;
+            foreach(Bitmon b in equipo)
+            {
+                if(b.estadolucha!= "dead")
+                {
+                    waza=true;
+                }
+            }
+            if (waza)
+            {
                 foreach (Bitmon b in equipo)
                 {
                     if (b.estadolucha == null)
@@ -39,35 +49,38 @@ namespace Bitmon
                         b.estadolucha = null;
                     }
                 }
-               
-
-            bool boolau1 = true;
-            while (boolau1)
-            {
-                string aux1 = Console.ReadLine();
-                counter = 1;
-                foreach (Bitmon c in equipo)
+                bool boolau1 = true;
+                while (boolau1)
                 {
-                    if (c.nombre == aux1)
+                    string aux1 = Console.ReadLine();
+                    counter = 1;
+                    foreach (Bitmon c in equipo)
                     {
-                        c.estadolucha = "activo";
-                        Console.WriteLine("Felicidades, su Bitmon elegido es {0}", c.nombre);
-                        Console.WriteLine("\n Presiona una tecla para continuar!! ");
-                        Console.ReadKey();
-                        break;
+                        if (c.nombre == aux1)
+                        {
+                            c.estadolucha = "activo";
+                            Console.WriteLine("Felicidades, su Bitmon elegido es {0}", c.nombre);
+                            Console.WriteLine("\n Presiona una tecla para continuar!! ");
+                            Console.ReadKey();
+                            break;
+                        }
+                        counter++;
                     }
-                    counter++;
-                }
 
-                if (counter > 3)
-                {
-                    Console.WriteLine("Nombre incorrecto :(, ingréselo nuevamente \n");
-                    continue;
-                }
-                boolau1 = false;
+                    if (counter > 3)
+                    {
+                        Console.WriteLine("Nombre incorrecto :(, ingréselo nuevamente \n");
+                        continue;
+                    }
+                    boolau1 = false;
 
+                }
             }
-            
+
+            else
+            {
+                Console.WriteLine("NO TIENE BITMONS DISPONIBLES PARA CAMBIAR");
+            }
         }
 
         public bool VerifyLife()
