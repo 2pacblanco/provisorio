@@ -111,11 +111,8 @@ namespace Bitmon
             //reduccion stamina
             stamina = stamina - pow.costo;
 
-            if(pow.ulti != null)
-            {
-                atacado.estadosalud = pow.ulti;
-            }
-
+            atacado.estadosalud = pow.ulti;
+            
             if (atacado.vida <= 0)
             {
                 atacado.vida = 0;

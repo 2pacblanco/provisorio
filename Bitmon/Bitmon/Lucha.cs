@@ -116,6 +116,8 @@ namespace Bitmon
 
                 }
 
+                bool boolaux = true;
+
                 Bitmon bitaux = null;
                 foreach (Bitmon b in participantes[0].equipo)
                 {
@@ -125,8 +127,49 @@ namespace Bitmon
                     }
                 }
 
+                if(bitaux.estadosalud == "Paralisis" || bitaux.estadosalud == "Sueño")
+                {
+                    Console.WriteLine("Turno perdido debido a efectos de poderes :(");
+                    boolaux = false;
+                    if(bitaux.estadosalud == "Sueño")
+                    {
+                        foreach(Bitmon b in participantes[0].equipo)
+                        {
+                            if (b.estadolucha == "activo")
+                            {
+                                b.estadosalud = null;
+                            }
+                        }
+                        Console.WriteLine("Felicidades, tu Bitmon despertó pero ya fue muy tarde, turno perdido :( ");
+                    }
+                }
+                if(bitaux.estadosalud == "Veneno")
+                {
+                    foreach(Bitmon b in participantes[0].equipo)
+                    {
+                        if (b.estadolucha == "activo")
+                        {
+                            b.vida = b.vida - 10;
+                        }
+                    }
 
-                bool boolaux = true;
+                    Console.WriteLine("Bitmon afectado por Veneno: Vida->"+bitaux.vida);
+                }
+                if(bitaux.estadosalud == "Confusion")
+                {
+                    Random rd1 = new Random();
+                    int azar = rd1.Next(1, 10);
+                    if (azar < 6)
+                    {
+                        boolaux = false;
+                        Console.WriteLine("Perdiste turno por la confusión de tu Bitmon :(");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Que suerte, la confusión no hizo perder turno, a jugarse el kino!! \n \n");
+                    }
+                }
+               
                 while (boolaux)
                 {
                     int opcion;
@@ -270,26 +313,7 @@ namespace Bitmon
                                 }
                             }
 
-                            Console.WriteLine("Datos de los Bitmons Finalizado este turno");
-                            Console.WriteLine("Bitmon de " + participantes[0].nombre);
-                            foreach (Bitmon b in participantes[0].equipo)
-                            {
-
-                                if (b.estadolucha == "activo")
-                                {
-                                    Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
-                                }
-
-                            }
-                            Console.WriteLine("Bitmon de " + participantes[1].nombre);
-                            foreach (Bitmon b in participantes[1].equipo)
-                            {
-                                if (b.estadolucha == "activo")
-                                {
-                                    Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
-                                }
-
-                            }
+                            
 
                             Console.WriteLine("Presione cualquier letra para seguir jugando!");
                             Console.ReadKey();
@@ -314,6 +338,30 @@ namespace Bitmon
 
                     }
                 }
+
+                Console.WriteLine("Datos de los Bitmons Finalizado este turno");
+                Console.WriteLine("Bitmon de " + participantes[0].nombre);
+                foreach (Bitmon b in participantes[0].equipo)
+                {
+
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
+                }
+                Console.WriteLine("Bitmon de " + participantes[1].nombre);
+                foreach (Bitmon b in participantes[1].equipo)
+                {
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
+                }
+
+                Console.WriteLine("\n \n Presione cualquier letra para seguir jugando!!");
+                Console.ReadKey();
 
             }
 
@@ -340,6 +388,8 @@ namespace Bitmon
 
                 }
 
+                bool boolaux1 = true;
+
                 Bitmon bitaux = null;
                 foreach (Bitmon b in participantes[1].equipo)
                 {
@@ -349,7 +399,50 @@ namespace Bitmon
                     }
                 }
 
-                bool boolaux1 = true;
+                if (bitaux.estadosalud == "Paralisis" || bitaux.estadosalud == "Sueño")
+                {
+                    Console.WriteLine("Turno perdido debido a efectos de poderes :(");
+                    boolaux1 = false;
+                    if (bitaux.estadosalud == "Sueño")
+                    {
+                        foreach (Bitmon b in participantes[1].equipo)
+                        {
+                            if (b.estadolucha == "activo")
+                            {
+                                b.estadosalud = null;
+                            }
+                        }
+                        Console.WriteLine("Felicidades, tu Bitmon despertó pero ya fue muy tarde, turno perdido :( ");
+                    }
+                }
+                if (bitaux.estadosalud == "Veneno")
+                {
+                    foreach (Bitmon b in participantes[0].equipo)
+                    {
+                        if (b.estadolucha == "activo")
+                        {
+                            b.vida = b.vida - 10;
+                        }
+                    }
+
+                    Console.WriteLine("Bitmon afectado por Veneno: Vida->" + bitaux.vida);
+                }
+                if (bitaux.estadosalud == "Confusion")
+                {
+                    Random rd1 = new Random();
+                    int azar = rd1.Next(1, 10);
+                    if (azar < 6)
+                    {
+                        boolaux1 = false;
+                        Console.WriteLine("Perdiste turno por la confusión de tu Bitmon :(");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Que suerte, la confusión no hizo perder turno, a jugarse el kino!! \n \n");
+                    }
+                }
+
+                
                 while (boolaux1)
                 {
                     int opcion;
@@ -449,7 +542,7 @@ namespace Bitmon
                             int counter = 1;
                             foreach (Poder p in act1.poderes)
                             {
-                                Console.WriteLine(counter + ".- Nombre: " + p.nombre + ", Costo: " + p.costo + ", Danio: " + p.danio + ", Tipo: " + p.tipo + ", Ulti: " + p.tipo);
+                                Console.WriteLine(counter + ".- Nombre: " + p.nombre + ", Costo: " + p.costo + ", Danio: " + p.danio + ", Tipo: " + p.tipo + ", Ulti: " + p.ulti);
                                 counter++;
                             }
                             Poder power;
@@ -491,29 +584,6 @@ namespace Bitmon
                                 }
                             }
 
-                            Console.WriteLine("Datos de los Bitmons Finalizado este turno");
-                            Console.WriteLine("Bitmon de " + participantes[0].nombre);
-                            foreach (Bitmon b in participantes[0].equipo)
-                            {
-                                if (b.estadolucha == "activo")
-                                {
-                                    Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
-                                }
-
-                            }
-                            Console.WriteLine("Bitmon de " + participantes[1].nombre);
-                            foreach (Bitmon b in participantes[1].equipo)
-                            {
-                                if (b.estadolucha == "activo")
-                                {
-                                    Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
-                                }
-
-                            }
-
-                            Console.WriteLine("Presione cualquier letra para seguir jugando!");
-                            Console.ReadKey();
-                            Console.Clear();
                             boolaux1 = false;
                         }
                         else
@@ -534,6 +604,28 @@ namespace Bitmon
                     }
 
                 }
+                Console.WriteLine("Datos de los Bitmons Finalizado este turno");
+                Console.WriteLine("Bitmon de " + participantes[0].nombre);
+                foreach (Bitmon b in participantes[0].equipo)
+                {
+
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
+                }
+                Console.WriteLine("Bitmon de " + participantes[1].nombre);
+                foreach (Bitmon b in participantes[1].equipo)
+                {
+                    if (b.estadolucha == "activo")
+                    {
+                        Console.WriteLine(b.nombre + "->VIDA->" + b.vida + "->STAMINA->" + b.stamina + "->Estado->:" + b.estadolucha);
+                    }
+
+                }
+                Console.WriteLine("Presione cualquier letra para seguir jugando!");
+                Console.ReadKey();
 
             }
 
