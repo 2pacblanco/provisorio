@@ -23,18 +23,32 @@ namespace Bitmon
 
         public void CambiarAct()
         {
-            
-                int counter = 1;
-                Console.WriteLine("Por favor, elija su Bitmon que saldrá a la Batalla: \n");
-                Console.WriteLine("Los disponibles para luchar son los siguientes:  (Ingrese el nombre de el Bitmon[primera letra mayuscula])");
-            bool waza =false;
-            foreach(Bitmon b in equipo)
+            Bitmon bitaux = null;
+            foreach(Bitmon b in equipo )
             {
-                if(b.estadolucha!= "dead")
+                if (b.estadolucha == "activo")
                 {
-                    waza=true;
+                    bitaux = b;
                 }
             }
+                int counter = 1;
+            int counter2 = 1;
+                Console.WriteLine("Por favor, elija su Bitmon que saldrá a la Batalla: \n");
+                Console.WriteLine("Los disponibles para luchar son los siguientes:  (Ingrese el nombre de el Bitmon[primera letra mayuscula])");
+            bool waza=true;
+            foreach(Bitmon b in equipo)
+            {
+                if(b.estadolucha != "dead" )
+                {
+                    counter2++;
+                }
+            }
+            if (counter2 == 2)
+            {
+                waza = false;
+            }
+            
+
             if (waza)
             {
                 foreach (Bitmon b in equipo)
@@ -77,9 +91,30 @@ namespace Bitmon
                 }
             }
 
-            else
+            if (waza == false)
             {
-                Console.WriteLine("NO TIENE BITMONS DISPONIBLES PARA CAMBIAR");
+                try
+                {
+                    foreach (Bitmon b in equipo)
+                    {
+                        if (b.nombre == bitaux.nombre)
+                        {
+                            b.estadolucha = "activo";
+                        }
+                    }
+                    Console.WriteLine("NO TIENE BITMONS DISPONIBLES PARA CAMBIAR");
+                    Console.ReadKey();
+                }
+                catch (NullReferenceException)
+                {
+                    foreach(Bitmon b in equipo)
+                    {
+                        if (b.vida > 0)
+                        {
+                            b.estadolucha = "activo";
+                        }
+                    }
+                }
             }
         }
 
